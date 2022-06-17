@@ -28,14 +28,7 @@ class TaskTile extends StatelessWidget {
           decoration: task.isDone! ? TextDecoration.lineThrough : null,
         ),
       ),
-      trailing: /*Checkbox(
-        value: task.isDone,
-        onChanged: task.isDeleted == false
-            ? (value) {
-                context.read<TasksBloc>().add(UpdateTask(task: task));
-              }
-            : null,
-      ),*/GFCheckbox(
+      trailing: GFCheckbox(
         activeBgColor: Colors.grey,
         activeIcon: Icon(Icons.done_all),
         size: GFSize.LARGE,
