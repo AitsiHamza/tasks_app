@@ -35,7 +35,35 @@ class TaskTile extends StatelessWidget {
               }
             : null,
       ),
+      leading: Checkbox(
+        value: task.isFavored,
+        onChanged: task.isDeleted == false
+            ? (value) {
+                context.read<TasksBloc>().add(FavoredTask(task: task));
+              }
+            : null,
+      ),
       onLongPress: () => _removeOrDeleteTask(context, task),
     );
   }
 }
+/*
+Checkbox(
+        value: task.isFavored,
+        onChanged: task.isDone == false
+            ? (value) {
+                context.read<TasksBloc>().add(FavoredTask(task: task));
+              }
+            : null,
+      ),
+ */
+/*
+IconButton(
+          icon: Icon(Icons.favorite_border),
+          onPressed: task.isFavored == false
+              ? () {
+            context.read<TasksBloc>().add(UpdateTask(task: task));
+          }
+              : null,
+      )
+ */
