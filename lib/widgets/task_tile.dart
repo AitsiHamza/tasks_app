@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tasks_app/models/task.dart';
+import 'package:getwidget/getwidget.dart';
 
 import '../blocs/bloc_exports.dart';
 
@@ -27,43 +28,41 @@ class TaskTile extends StatelessWidget {
           decoration: task.isDone! ? TextDecoration.lineThrough : null,
         ),
       ),
-      trailing: Checkbox(
+      trailing: /*Checkbox(
         value: task.isDone,
         onChanged: task.isDeleted == false
             ? (value) {
                 context.read<TasksBloc>().add(UpdateTask(task: task));
               }
             : null,
-      ),
-      leading: Checkbox(
-        value: task.isFavored,
+      ),*/GFCheckbox(
+        activeBgColor: Colors.grey,
+        activeIcon: Icon(Icons.done_all),
+        size: GFSize.LARGE,
+        type: GFCheckboxType.circle,
         onChanged: task.isDeleted == false
             ? (value) {
+          context.read<TasksBloc>().add(UpdateTask(task: task));
+        }
+            : null,
+        value: task.isDone??false,
+        inactiveIcon: Icon(Icons.remove_done,color: Colors.grey,),
+      ),
+      leading: GFCheckbox(
+              activeBgColor: Colors.grey,
+              activeIcon: Icon(Icons.favorite),
+              size: GFSize.SMALL,
+              type: GFCheckboxType.circle,
+              onChanged: task.isDeleted == false
+                  ? (value) {
                 context.read<TasksBloc>().add(FavoredTask(task: task));
               }
-            : null,
-      ),
+                  : null,
+              value: task.isFavored??false,
+              inactiveIcon: Icon(Icons.favorite_border,color: Colors.grey),
+            ),
       onLongPress: () => _removeOrDeleteTask(context, task),
     );
   }
 }
-/*
-Checkbox(
-        value: task.isFavored,
-        onChanged: task.isDone == false
-            ? (value) {
-                context.read<TasksBloc>().add(FavoredTask(task: task));
-              }
-            : null,
-      ),
- */
-/*
-IconButton(
-          icon: Icon(Icons.favorite_border),
-          onPressed: task.isFavored == false
-              ? () {
-            context.read<TasksBloc>().add(UpdateTask(task: task));
-          }
-              : null,
-      )
- */
+
